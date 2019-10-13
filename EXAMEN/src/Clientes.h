@@ -5,7 +5,7 @@
 #define EXIT_SUCCESS 0
 #define STATUS_EMPTY 0
 #define STATUS_NOT_EMPTY 1
-#define STATUS_PENDIENTE 2
+
 
 #include "general.h"
 
@@ -27,7 +27,7 @@ static int generarId();
 int initLugarLibreClientes(Clientes *aArray, int cantidad);
 int imprimirArrayClientes(Clientes *aArray, int cantidad);
 int buscarLugarCliente(Clientes *aArray, int cantidad);
-int altaClientePorId(Clientes *aArray, int cantidad,Clientes buffer);
+int altaClientePorId(Clientes *aArray, int cantidad,Clientes buffer, int *id);
 int buscarClientePorId(Clientes *aArray, int cantidad, int id);
 int imprimirDatosClientePorId(Clientes *aArray, int cantidad, int id);
 int modificacionClientePorIdCamposPuntuales(Clientes *aArray, int cantidad, int index);

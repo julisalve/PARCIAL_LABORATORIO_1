@@ -4,8 +4,10 @@
 #define EXIT_ERROR -1
 #define EXIT_SUCCESS 0
 #define STATUS_EMPTY 0
-#define STATUS_NOT_EMPTY 1
+//#define STATUS_NOT_EMPTY 1
 #define SIN_CANTIDAD_KILOS 0.00
+#define STATUS_PENDIENTE 2
+#define STATUS_COMPLETO 1
 
 #include "general.h"
 #include "Clientes.h"
@@ -13,7 +15,10 @@
 typedef struct
 		{
 
-		float kilos;
+		float kilosHdpe_1;
+		float kilosLdpe_2;
+		float kilosPp_3;
+		float kilosDesecho_4;
 		float kilosTotales;
 		int tipo;
 		int id;
@@ -45,12 +50,12 @@ int imprimirArrayPedidosPendientes(Pedidos *aArray, int cantidad);
 int modificacionPedidoPorId(Pedidos *aArray, int cantidad, int index, Pedidos buffer);
 //
 //
-int buscarClientePorIdEnPedido(Pedidos *aArray, int cantidad, int idCliente);
+//int buscarClientePorIdEnPedido(Pedidos *aArray, int cantidad, int idCliente);
 
 int imprimirArrayPedidosPendientesConClientes(Pedidos *aArray, int cantidad, Clientes *aArrayClientes, int cantidadClientes);
 
 int initLugarLibreContador(auxContador *aArray, int cantidad);
 
-
+int imprimirCantidadPedidosPendientesPorCuit(auxContador *aArrayCont, int cantCont,Clientes *aArrayClientes, int cantClientes);
 
 #endif /* PEDIDOS_H_ */

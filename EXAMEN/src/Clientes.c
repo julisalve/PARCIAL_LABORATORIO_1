@@ -105,7 +105,7 @@ int buscarLugarCliente(Clientes *aArray, int cantidad)
  * \return devuelve el -1 (EXIT_ERROR) en caso de que el array sea nulo o que su tamaño sea invalido o que no haya lugar libre o devuelve 0 (EXIT_SUCCESS) en caso de exito
  *
  */
-int altaClientePorId(Clientes *aArray, int cantidad,Clientes buffer)
+int altaClientePorId(Clientes *aArray, int cantidad,Clientes buffer, int *id)
 {
 	int retorno = EXIT_ERROR;
 	int i;
@@ -115,6 +115,7 @@ int altaClientePorId(Clientes *aArray, int cantidad,Clientes buffer)
 		{
 			aArray[i]=buffer;
 			aArray[i].id = generarId();
+			*id=aArray[i].id;
 			aArray[i].status = STATUS_NOT_EMPTY;
 			retorno = EXIT_SUCCESS;
 		}
@@ -257,7 +258,6 @@ int ordenarCuit (Clientes *aArray, int cantidad)
 
 	return retorno;
 }
-
 
 
 

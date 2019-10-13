@@ -38,7 +38,11 @@ int initLugarLibrePedidos(Pedidos *aArray, int cantidad)
 		for(i=0;i<cantidad;i++)
 	{
 		aArray[i].status=STATUS_EMPTY;
-		aArray[i].kilos=SIN_CANTIDAD_KILOS;
+		aArray[i].kilosTotales=SIN_CANTIDAD_KILOS;
+		aArray[i].kilosHdpe_1=SIN_CANTIDAD_KILOS;
+		aArray[i].kilosLdpe_2=SIN_CANTIDAD_KILOS;
+		aArray[i].kilosPp_3=SIN_CANTIDAD_KILOS;
+		aArray[i].kilosDesecho_4=SIN_CANTIDAD_KILOS;
 	}
 		}
 		return retorno;
@@ -63,7 +67,7 @@ int imprimirArrayPedidos(Pedidos *aArray, int cantidad)
 		{
 			if(aArray[i].status==STATUS_NOT_EMPTY)
 			{
-				printf("Id: %d - Status %d - IDCliente: %d - Tipo: %d - KIlos %.2f\n",aArray[i].id,aArray[i].status,aArray[i].idCliente,aArray[i].tipo,aArray[i].kilos);
+				printf("Id: %d - Status %d - IDCliente: %d - Tipo: %d - KIlos %.2f\n",aArray[i].id,aArray[i].status,aArray[i].idCliente,aArray[i].tipo,aArray[i].kilosTotales);
 			}
 
 		}
@@ -92,7 +96,7 @@ int imprimirArrayPedidosPendientes(Pedidos *aArray, int cantidad)
 		{
 			if(aArray[i].status==STATUS_PENDIENTE)
 			{
-				printf("Id: %d - Status %d - IDCliente: %d - Tipo: %d - KIlos %.2f\n",aArray[i].id,aArray[i].status,aArray[i].idCliente,aArray[i].tipo,aArray[i].kilos);
+				printf("Id: %d - Status %d - IDCliente: %d - Tipo: %d - KIlos %.2f\n",aArray[i].id,aArray[i].status,aArray[i].idCliente,aArray[i].tipo,aArray[i].kilosTotales);
 			}
 
 		}
@@ -147,42 +151,50 @@ int imprimirArrayPedidosPendientesConClientes(Pedidos *aArray, int cantidad, Cli
 int bajaClientePorId(Clientes *aArray, int cantidad,Pedidos *aArrayPed, int cantPed, int id)
 {
 	int retorno =EXIT_ERROR;
+	int i;
 	int posicionCliente= buscarClientePorId(aArray, cantidad,id);
-	int posicionClienteEnPedido =buscarClientePorIdEnPedido(aArrayPed,cantPed,id);
 	if(aArray != NULL && cantidad > 0 && posicionCliente >=0 && aArrayPed !=NULL && cantPed >0)
 			{
 				aArray[posicionCliente].status= STATUS_EMPTY;
-				aArrayPed[posicionClienteEnPedido].status=STATUS_EMPTY;
+				for(i=0;i<cantPed;i++)
+				{
+					if(aArrayPed[i].idCliente==id)
+					{
+						aArrayPed[i].idCliente=STATUS_EMPTY;
+					}
+
+				}
+				//aArrayPed[posicionClienteEnPedido].status=STATUS_EMPTY;
 				retorno=EXIT_SUCCESS;
 			}
 	return retorno;
 }
 
-/**
- * \brief Busca la posicion de un id ingresado por un usuario
- * \param *aArray array que se le pasa a la funcion
- * \param cantidad tamaño del array
- * \param id
- * \return devuelve el -1 (EXIT_ERROR) en caso de que el array sea nulo o que su tamaño sea invalido o devuelve la posicion en donde se encuentra el id buscado
- *
- */
-int buscarClientePorIdEnPedido(Pedidos *aArray, int cantidad, int idCliente)
-{
-	int retorno =EXIT_ERROR;
-	int i;
-	if(aArray != NULL && cantidad > 0)
-	{
-		for(i=0;i<cantidad;i++)
-	{
-		if(idCliente==aArray[i].idCliente)
-		{
-			retorno = i;
-			break;
-		}
-	}
-	}
-	return retorno;
-}
+///**
+// * \brief Busca la posicion de un id ingresado por un usuario
+// * \param *aArray array que se le pasa a la funcion
+// * \param cantidad tamaño del array
+// * \param id
+// * \return devuelve el -1 (EXIT_ERROR) en caso de que el array sea nulo o que su tamaño sea invalido o devuelve la PRIMER posicion en donde se encuentra el id buscado
+// *
+// */
+//int buscarClientePorIdEnPedido(Pedidos *aArray, int cantidad, int idCliente)
+//{
+//	int retorno =EXIT_ERROR;
+//	int i;
+//	if(aArray != NULL && cantidad > 0)
+//	{
+//		for(i=0;i<cantidad;i++)
+//	{
+//		if(idCliente==aArray[i].idCliente)
+//		{
+//			retorno = i;
+//			break;
+//		}
+//	}
+//	}
+//	return retorno;
+//}
 
 /**
  * \brief BUsca el primer lugar libre y devuelve el fracaso o la posicion
@@ -292,8 +304,30 @@ int cantidadPedidosPendientesPorCuit(Pedidos *aArray, int cantidad, auxContador 
 	int retorno=EXIT_ERROR;
 	int i;
 	int j;
-	int id;
-	//initAcumulador(aArrayCont,cantCont);
+//	int contador=0;
+//	if(aArray != NULL && cantidad>0 && aArrayClientes!=NULL && cantClientes>0)
+//		{
+//		contador=0;
+//		for(i=0;i<cantClientes;i++)
+//
+//		{
+//			if(aArrayClientes[i].status==STATUS_NOT_EMPTY)
+//			for(j=0;i<cantidad;j++)
+//			{
+//				if(aArrayClientes[i].id==aArray[j].idCliente && aArray[j].status==STATUS_PENDIENTE )
+//				{
+//					contador++;
+//
+//
+//				}
+//				printf("Id: %d - Status %d - Nombre: %s - Direccion: %s - Cuit: %s - Cantidad pedidos Pendiente %d\n",aArrayClientes[i].id,aArrayClientes[i].status,aArrayClientes[i].nombre,aArrayClientes[i].direccion,aArrayClientes[i].cuit,contador);
+//			}
+//		}
+//		}
+
+//	int k;
+//	int id;
+//	//initAcumulador(aArrayCont,cantCont);
 	initLugarLibreContador(aArrayCont,cantCont);
 	if(aArray != NULL && cantidad>0 && aArrayClientes!=NULL && cantClientes>0)
 	{
@@ -315,18 +349,58 @@ int cantidadPedidosPendientesPorCuit(Pedidos *aArray, int cantidad, auxContador 
 									}
 			}
 		}
-		for(i=0;i<cantCont;i++)
-		{
-			if(aArrayCont[i].status==STATUS_PENDIENTE && aArrayCont[i].idCliente==aArrayCont[i+1].idCliente)
-			{
-				id=aArrayClientes[i].id;
-				imprimirDatosClientePorId(aArrayClientes,cantClientes,id);
-				printf("Cantidad de pedidos en estado PENDIENTE: %d \n",aArrayCont[i].contador);
-			}
-		}
+//		for(i=0;i<cantCont;i++)
+//		{
+//			if(aArrayCont[i].status==STATUS_PENDIENTE && aArrayCont[i].idCliente!=aArrayCont[i+1].idCliente)
+//			{
+//				for(k=0;k<cantClientes;k++)
+//
+//				{
+//					for(j=0;j<cantidad;j++)
+//					{
+//
+//
+//					if(aArrayClientes[k].id==aArray[j].idCliente)
+//
+//					{
+//						//id=aArray[j].idCliente;
+//						printf("Id: %d - Status %d - Nombre: %s - Direccion: %s - Cuit: %s - Cantidad pedidos Pendiente %d\n",aArrayClientes[j].id,aArrayClientes[j].status,aArrayClientes[j].nombre,aArrayClientes[j].direccion,aArrayClientes[j].cuit,aArrayCont[i].contador);
+//					}
+//
+//				}}
+//
+////				id=aArrayClientes[i].id;
+////				imprimirDatosClientePorId(aArrayClientes,cantClientes,id);
+//
+//			}
+//		}
 	}
 	return retorno;
 }
+
+
+int imprimirCantidadPedidosPendientesPorCuit(auxContador *aArrayCont, int cantCont,Clientes *aArrayClientes, int cantClientes)
+{
+	int retorno =EXIT_ERROR;
+	int i;
+	int j;
+	if(aArrayCont != NULL && cantCont>0 && aArrayClientes!=NULL && cantClientes>0)
+	{
+		for(i=0;i<cantCont;i++)
+				{
+			for(j=0;j<cantClientes;j++)
+					if(aArrayCont[i].status==STATUS_NOT_EMPTY && aArrayCont[i].idCliente!=aArrayCont[i+1].idCliente && aArrayCont[i].idCliente==aArrayClientes[j].id)
+					{
+						printf("Cuit %s - ID Cliente %d - NOmbre %s - Direccion %s - Localidad %s tiene %d pedidos pendientes\n",aArrayClientes[j].cuit,aArrayClientes[j].id,aArrayClientes[j].nombre,aArrayClientes[j].direccion,aArrayClientes[j].localidad,aArrayCont[i].contador);
+					}
+				}
+	}
+	return retorno;
+}
+
+
+
+
 
 /**\brief Modifica el dato que se desee de los campos de la estructura del srray
  *
@@ -343,8 +417,12 @@ int modificacionPedidoPorId(Pedidos *aArray, int cantidad, int index, Pedidos bu
 	if(aArray != NULL && cantidad>0 )
 		{
 		retorno=EXIT_SUCCESS;
-		aArray[index].kilos=buffer.kilos;
-		aArray[index].status=STATUS_NOT_EMPTY;
+		aArray[index].kilosTotales=buffer.kilosTotales;
+		aArray[index].kilosHdpe_1=buffer.kilosHdpe_1;
+		aArray[index].kilosLdpe_2=buffer.kilosLdpe_2;
+		aArray[index].kilosPp_3=buffer.kilosPp_3;
+		aArray[index].kilosDesecho_4=buffer.kilosDesecho_4;
+		aArray[index].status=STATUS_COMPLETO;
 
 		}
 			return retorno;
