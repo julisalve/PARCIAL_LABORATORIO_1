@@ -21,8 +21,6 @@ typedef struct
 		}Clientes;
 
 
-
-
 static int generarId();
 int initLugarLibreClientes(Clientes *aArray, int cantidad);
 int imprimirArrayClientes(Clientes *aArray, int cantidad);
@@ -33,8 +31,5 @@ int imprimirDatosClientePorId(Clientes *aArray, int cantidad, int id);
 int modificacionClientePorIdCamposPuntuales(Clientes *aArray, int cantidad, int index);
 int ordenarCuit (Clientes *aArray, int cantidad);;
 
-
-
-
-
+void altaForzadaClientes(Clientes *aArray,int cantidad);
 #endif /* CLIENTES_H_ */
