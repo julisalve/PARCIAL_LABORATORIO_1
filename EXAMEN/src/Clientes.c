@@ -6,6 +6,7 @@
 #include <string.h>
 #include "general.h"
 
+static int generarId();
 
 /**
  * \brief Genera ID irrepetible
@@ -270,14 +271,14 @@ int ordenarCuit (Clientes *aArray, int cantidad)
  */
 void altaForzadaClientes(Clientes *aArray,int cantidad)
 {
-	int id[]={1,2,3,4,5};
-	int status[]={1,1,1,1,1};
-	char nombre[][50]={" juan sh","pedro srl","maria sa","luis sca","eva scc"};
-	char direccion[][50]={" Lavalle 209","Ayolas 3429","383 2696","pellegrini y calchaqui","12 de oct 2431"};
-	char cuit[][50]={"11111111111","22222222222","33333333333","44444444444","55555555555"};
-	char localidad[][50]={" Quilmes","Avellaneda","caba","Wilde","Burzaco"};
+	int id[]={1,2,3,4,5,6};
+	int status[]={1,1,1,1,1,1};
+	char nombre[][50]={" Telefonica","Datasoft","Nestle","Terrabusi","Dia","Quilmes"};
+	char direccion[][50]={"Lima 1234","Corientes 2547","Cucha Cucha 555","Rocha 784","Mitre 750","Rocha 741"};
+	char cuit[][50]={"30112233445","30445566776","30889955219","30567814235","31545812533","30514857596"};
+	char localidad[][50]={"Caba","Caba","Lanus","Quilmes","Avellaneda","Quilmes"};
 	int i;
-	for(i=0;i<5;i++)
+	for(i=0;i<6;i++)
 	{
 		aArray[i].id=id[i];
 		aArray[i].status=status[i];

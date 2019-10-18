@@ -6,6 +6,7 @@
 #include "Clientes.h"
 #include "general.h"
 #include "Pedidos.h"
+#include "informes.h"
 
 #define QTY_PEDIDOS 1000
 #define QTY_CLIENTES 100
@@ -29,14 +30,14 @@ int main(void)
 	initLugarLibreClientes(aClientes,QTY_CLIENTES);
 	do
 	{
-		//		altaForzadaClientes(aClientes,QTY_CLIENTES);
-		//		imprimirArrayClientes(aClientes,QTY_CLIENTES);
-		//		altaForzadaPedidos(aPedidos,QTY_PEDIDOS);
-		//		imprimirArrayPedidosDistintoEmpty(aPedidos,QTY_PEDIDOS);
+				altaForzadaClientes(aClientes,QTY_CLIENTES);
+				imprimirArrayClientes(aClientes,QTY_CLIENTES);
+				altaForzadaPedidos(aPedidos,QTY_PEDIDOS);
+				imprimirArrayPedidosDistintoEmpty(aPedidos,QTY_PEDIDOS);
 
 		system("clear");
-		printf("1)ALTA CLIENTE.\n2)MODIFICACION CLIENTE\n3)BAJA CLIENTE.\n4)CREAR PEDIDO DE RECOLECCION.\n5)PROCESAR RESIDUOS.\n6)IMPIMIR CLIENTES CON PEDIDOS PENDIENTES.\n7)IMPRIMIR PEDIDOS PENDIENTES.\n8)IMPRIMIR PEDIDOS PROCESADOS.\n ");
-		if(getInt(&opcion, "Ingrese una opcion del menu \n", "NO es una opcion valida \n",1,8,3)!=0)
+		printf("1)ALTA CLIENTE.\n2)MODIFICACION CLIENTE\n3)BAJA CLIENTE.\n4)CREAR PEDIDO DE RECOLECCION.\n5)PROCESAR RESIDUOS.\n6)IMPIMIR CLIENTES CON PEDIDOS PENDIENTES.\n7)IMPRIMIR PEDIDOS PENDIENTES.\n8)IMPRIMIR PEDIDOS PROCESADOS.\n9) INFORMES ");
+		if(getInt(&opcion, "Ingrese una opcion del menu \n", "NO es una opcion valida \n",1,9,3)!=0)
 		{
 			printf("ERROR.\n ");
 			break;
@@ -323,6 +324,12 @@ int main(void)
 			{
 				imprimirArrayPedidosCompletosConClientes(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
 			}
+
+
+			break;
+
+		case 9:
+			menuInformes(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES,aContador,QTY_PEDIDOS);
 			break;
 
 		}

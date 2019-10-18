@@ -6,7 +6,7 @@
 #include <string.h>
 
 
-
+static int generarId();
 /**
  * \brief Genera ID irrepetible
  *
@@ -459,24 +459,22 @@ int imprimirArrayPedidosCompletosConClientes(Pedidos *aArrayPed,int cantPed,Clie
  */
 void altaForzadaPedidos(Pedidos *aArray,int cantidad)
 {
-	float kilosHdpe_1[]={12.5,1.2,8.9,9.8,10.0};
-	float kilosLdpe_2[]={12.5,1.2,8.9,9.8,10.0};
-	float kilosPp_3[]={12.5,1.2,8.9,9.8,10.0};
-	float kilosDesecho_4[]={0.00,0.00,0.00,0.00,0.00};
-	float kilosTotales[]={37.5,3.6,26.7,29.4,30.0};
-	//int tipo[]={1,2,3,1,1};
-	int id[]={10,3,4,2,9};
-	int status[]={1,2,2,1,2};
-	int idCliente[]={1,2,3,2,2};
+	float kilosHdpe_1[]={200,210,0,0,500,100,0,10,0};
+	float kilosLdpe_2[]={145,45,0,0,150,50,0,5,0};
+	float kilosPp_3[]={230,30,0,0,270,70,0,3,0};
+	float kilosDesecho_4[]={425,515,0,0,580,530,0,12,0};
+	float kilosTotales[]={1000,800,100,300,1500,750,200,30,456};
+	int id[]={1,2,3,4,5,6,7,8,9};
+	int status[]={1,1,2,2,1,1,2,1,2};
+	int idCliente[]={1,1,2,2,3,4,1,5,6};
 	int i;
-	for(i=0;i<5;i++)
+	for(i=0;i<9;i++)
 	{
 		aArray[i].kilosTotales=kilosTotales[i];
 		aArray[i].kilosHdpe_1=kilosHdpe_1[i];
 		aArray[i].kilosLdpe_2=kilosLdpe_2[i];
 		aArray[i].kilosPp_3=kilosPp_3[i];
 		aArray[i].kilosDesecho_4=kilosDesecho_4[i];
-		//aArray[i].tipo=tipo[i];
 		aArray[i].id=id[i];
 		aArray[i].status=status[i];
 		aArray[i].idCliente=idCliente[i];

@@ -21,7 +21,7 @@ typedef struct
 		}Clientes;
 
 
-static int generarId();
+
 int initLugarLibreClientes(Clientes *aArray, int cantidad);
 int imprimirArrayClientes(Clientes *aArray, int cantidad);
 int buscarLugarCliente(Clientes *aArray, int cantidad);
