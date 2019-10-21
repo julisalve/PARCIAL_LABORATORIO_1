@@ -409,7 +409,7 @@ int ordenarPorIdCliente (Pedidos *aArray, int cantidad)
 		for(i=0;i<cantidad;i++)
 		{
 			j=i;
-			while (aArray[j].idCliente>aArray[j-1].idCliente && j>0) //ordena de menor a mayor
+			while (aArray[j].idCliente>aArray[j-1].idCliente && j>0) //ordena de mayor a menor
 			{
 				bPedidos=aArray[j-1];
 				aArray[j-1]=aArray[j];
