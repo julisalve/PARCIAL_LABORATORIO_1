@@ -18,39 +18,45 @@ int menuInformes(Pedidos *aArrayPed, int cantPed, Clientes *aArrayClientes, int 
 	int tipoResiduo;
 	char cuit[20];
 	while(getInt(&opcion, "Ingrese una opcion de informes\n  1)Cliente con mas pedidos pendientes.\n  2)Cliente con mas pedidos completos.\n  3)Cliente con mas pedidos.\n  4)Cliente que reciclo mas kilos.\n  5)Cliente que reciclo menos kilos.\n  6)Cantidad de clientes que reciclaron mas de 1.000 kgs.\n  7)Cantidad de clientes que reciclaron menos de 100 kgs.\n  8)Imprimir pedidos completados.\n  9)Cantidad de pedidos pendientes por localidad ingresada.\n  10)Cantidad de kilos polipropileno reciclado promedio por cliente.\n  11)Cantidad de tipo de residuo por cuit a ingresar.\n","NO es una opcion valida.",1,11,3)!=0)
-			{
-				printf("ERROR.\n ");
-			}
+	{
+		printf("ERROR.\n ");
+	}
 	ordenarPorIdCliente(aArrayPed,cantPed);
 	switch (opcion)
 	{
-//	retorno = EXIT_SUCCESS;
 	case 1:
-		 obtenerId(aArrayClientes,cantClientes, aArrayPed, cantPed);
-		 break;
+		obtenerIdConMasPedidosPendientes(aArrayClientes,cantClientes, aArrayPed, cantPed);
+		break;
 
 	case 2:
-		obtenerIdCompletos(aArrayClientes,cantClientes, aArrayPed, cantPed);
+		obtenerIdConMasPedidosCompletos(aArrayClientes,cantClientes, aArrayPed, cantPed);
 		break;
+
 	case 3:
-obtenerIdMasPedidos(aArrayClientes,cantClientes,aArrayPed, cantPed);
+		obtenerIdMasPedidos(aArrayClientes,cantClientes,aArrayPed, cantPed);
 		break;
-	case 4: //cliente que reciclo mas kilos
-obtenerIdClienteQueRecicloMAsKilos(aArrayClientes, cantClientes, aArrayPed, cantPed);
+
+	case 4:
+		obtenerIdClienteQueRecicloMAsKilos(aArrayClientes, cantClientes, aArrayPed, cantPed);
 		break;
+
 	case 5:
-obtenerIdClienteQueRecicloMenosKilos(aArrayClientes, cantClientes, aArrayPed, cantPed);
+		obtenerIdClienteQueRecicloMenosKilos(aArrayClientes, cantClientes, aArrayPed, cantPed);
 		break;
+
 	case 6:
-obtenerCantidadClientesMasMilKilosReciclados(aArrayClientes, cantClientes,aArrayPed,cantPed);
-break;
+		obtenerCantidadClientesMasMilKilosReciclados(aArrayClientes, cantClientes,aArrayPed,cantPed);
+		break;
+
 	case 7:
-obtenerCantidadClientesMenosCienKilosReciclados(aArrayClientes, cantClientes, aArrayPed, cantPed);
-break;
+		obtenerCantidadClientesMenosCienKilosReciclados(aArrayClientes, cantClientes, aArrayPed, cantPed);
+		break;
+
 	case 8:
-ordenarPorIdPedidos (aArrayPed, cantPed);
-imprimirPedidosCompletosConClientesYPorcentajePlasticoReciclado(aArrayPed,cantPed,aArrayClientes,cantClientes);
-break;
+		ordenarPorIdPedidos (aArrayPed, cantPed);
+		imprimirPedidosCompletosConClientesYPorcentajePlasticoReciclado(aArrayPed,cantPed,aArrayClientes,cantClientes);
+		break;
+
 	case 9:
 		if(getDatoSoloLetras(localidadIngresadaChar, "Ingrese el nombre de una localidad para realizar la busqueda de pedidos pendientes \n","NO es una localidad valida \n",2,50,2)!=0)
 		{
@@ -59,46 +65,48 @@ break;
 		else
 		{
 			pasarSoloPrimeraLetraMayuscula(localidadIngresadaChar);
-			opcion=1;
 			obtenerCantidadPedidosPendientesPorLocalidadIngresada(aArrayClientes,cantClientes,aArrayPed, cantPed, localidadIngresadaChar);
 		}
-//		getInt(&localidadIngresada, "Ingrese el nombre de una localidad para realizar la busqueda de pedidos pendientes:\n 1)CABA,\n 2)LANUS,\n 3)QUILMES,\n 4)AVELLANEDA \n","NO es una localidad valida \n",1,4,2);
-//obtenerCantidadPedidosPendientesPorLocalidadIngresada(aArrayClientes, cantClientes, aArrayPed, cantPed,localidadIngresada);
+		//		getInt(&localidadIngresada, "Ingrese el nombre de una localidad para realizar la busqueda de pedidos pendientes:\n 1)CABA,\n 2)LANUS,\n 3)QUILMES,\n 4)AVELLANEDA \n","NO es una localidad valida \n",1,4,2);
+		//obtenerCantidadPedidosPendientesPorLocalidadIngresada(aArrayClientes, cantClientes, aArrayPed, cantPed,localidadIngresada);
 		break;
+
 	case 10:
-promedio=obtenerKilosPolipropilenoPromedio(aArrayPed,cantPed);
-printf("La cantidad de kilos de polipropileno reciclado promedio por cliente es %.2f \n",promedio);
-break;
+		promedio=obtenerKilosPolipropilenoPromedio(aArrayPed,cantPed);
+		printf("La cantidad de kilos de polipropileno reciclado promedio por cliente es %.2f \n",promedio);
+		break;
+
 	case 11:
 		getInt(&tipoResiduo, "Indique numero de tipo de residuo: 1)HDPE, 2)LDPE , 3)PP:\n","NO es un tipo valido \n",1,3,2);
 		getSoloNumeros(cuit, "Ingrese numero de cuit sin guion \n","No es un cuit valido",1,20,2);
-obtenerKilosTotalesTipoResiduoPorCuit(aArrayPed, cantPed, aArrayClientes,cantClientes,cuit, tipoResiduo);
-
+		obtenerKilosTotalesTipoResiduoPorCuit(aArrayPed, cantPed, aArrayClientes,cantClientes,cuit, tipoResiduo);
 		break;
 	}
 	return retorno;
 }
 
 
+//CLIENTE CON MAS PEDIDOS PENDIENTES
 
-
-
-
-
-
-//cliente con mas pedidos pendientes
-
-int obtenerId(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed)
+/**
+ * \brief Obtiene el id Cliente con mas pedidos pendientes y lo imprime a traves del llamado de otra funcion.
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o 0 en caso de exito. Imprime el cliente con mas pedidos pendientes
+ *
+ */
+int obtenerIdConMasPedidosPendientes(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed)
 {
-
 	int retorno =EXIT_ERROR;
 	int i;
 	int id;
 	int cantidadPedidos;
 	int maximoPed=0;
 	int maximoId=0;
-	if(aArrayClientes != NULL && cantClientes > 0 )
-		{
+	if(aArrayClientes != NULL && cantClientes > 0 && aArrayPed != NULL && cantPed > 0)
+	{
 		retorno =EXIT_SUCCESS;
 		for(i=0;i<cantClientes;i++)
 		{
@@ -106,18 +114,27 @@ int obtenerId(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, in
 			cantidadPedidos=cantPedidosPendientes(aArrayPed, cantPed, &id,aArrayClientes, cantClientes);
 			maximoPedidos(cantidadPedidos, &maximoPed, &id, &maximoId);
 		}
-		}
+	}
 	imprimirDatosCLientePorId (aArrayClientes,cantClientes, maximoId, aArrayPed, cantPed);
-
 	return retorno;
 }
 
+/**
+ * \brief Cuenta la cantidad de pedidos que tiene un determinado id Cliente
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \param *id es el id cliente pasado para poder contar cantidad de pedidos pendientes
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o la cantidad de pedidos pendientes del id Cliente pasado a la funcion
+ *
+ */
 int cantPedidosPendientes(Pedidos *aArrayPed, int cantPed, int *id, Clientes *aArrayClientes, int cantClientes)
 {
 	int retorno =EXIT_ERROR;
 	int i;
 	int contador=0;
-	if(aArrayPed != NULL && cantPed > 0 )
+	if(aArrayPed != NULL && cantPed > 0 && aArrayClientes !=NULL && cantClientes>0)
 	{
 		for(i=0;i<cantPed;i++)
 		{
@@ -131,6 +148,15 @@ int cantPedidosPendientes(Pedidos *aArrayPed, int cantPed, int *id, Clientes *aA
 	return retorno;
 }
 
+/**
+ * \brief Calcula la cantidad maxima de pedidos pendientes y su id cliente
+ * \param cantidadPedidos es la cantidad de pedidos pendientes de un id cliente en particular
+ * \param *maximoPed es el maximo de pedidos pendientes
+ * \param *id es el id cliente pasado para poder calcular el maximo
+ * \param *maximoId es el Id clientes de mayor cantidad de pedidos pendientes
+ * \return devuelve  -1 en caso de que haya un maximo que el ingresado o el 0 en caso de exito
+ *
+ */
 int maximoPedidos(int cantidadPedidos, int *maximoPed, int *id, int *maximoId)
 {
 	int retorno =EXIT_ERROR;
@@ -143,11 +169,18 @@ int maximoPedidos(int cantidadPedidos, int *maximoPed, int *id, int *maximoId)
 	return retorno;
 }
 
+/**
+ * \brief Busca la posicion de un id de Cliente en particular dentro del array
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param id es el id cliente
+ * \return devuelve  -1 en caso de error ( tamaño de array invalido o array nulo) o la posicion donde se encuentra dicho id
+ *
+ */
 int buscarClientePorIdInformes(Clientes *aArray, int cantidad, int id)
 {
 	int retorno =EXIT_ERROR;
 	int i;
-
 	if(aArray != NULL && cantidad > 0)
 	{
 		for(i=0;i<cantidad;i++)
@@ -162,24 +195,47 @@ int buscarClientePorIdInformes(Clientes *aArray, int cantidad, int id)
 	return retorno;
 }
 
-
+/**
+ * \brief Imprime los datos de un id Cliente en particular
+ * \param *aArray array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param id es el id cliente
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o devuelve el 0 en caso de exito
+ *
+ */
 int imprimirDatosCLientePorId (Clientes *aArray, int cantClientes, int id, Pedidos *aArrayPed, int cantPed)
 {
 	int retorno=EXIT_ERROR;
 	int index;
-	if(aArray != NULL && cantClientes > 0 )
+	if(aArray != NULL && cantClientes > 0 && aArrayPed !=NULL && cantPed >0)
 	{
 		index=buscarClientePorIdInformes(aArray,cantClientes,id);
-
 		printf("NOMBRE %s - CUIT %s \n",aArray[index].nombre,aArray[index].cuit);
+		retorno=EXIT_SUCCESS;
 	}
 	return retorno;
 }
 
 
-//cliente con mas pedidos completados
 
-int obtenerIdCompletos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed)
+
+
+
+
+//CLIENTE CON MAS PEDIDOS COMPLETADOS
+
+/**
+ * \brief Obtiene el id Cliente con mas pedidos COMPLETADOS y lo imprime a traves del llamado de otra funcion.
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o 0 en caso de exito. Imprime el cliente con mas pedidos COMPLETADOS
+ *
+ */
+int obtenerIdConMasPedidosCompletos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed)
 {
 	int retorno =EXIT_ERROR;
 	int i;
@@ -188,7 +244,7 @@ int obtenerIdCompletos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArr
 	int maximoPed=0;
 	int maximoId=0;
 	if(aArrayClientes != NULL && cantClientes > 0 )
-		{
+	{
 		retorno =EXIT_SUCCESS;
 		for(i=0;i<cantClientes;i++)
 		{
@@ -196,21 +252,30 @@ int obtenerIdCompletos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArr
 			cantidadPedidos=cantPedidosCompletados(aArrayPed, cantPed, &id,aArrayClientes, cantClientes);
 			maximoPedidos(cantidadPedidos, &maximoPed, &id, &maximoId);
 		}
-		}
+	}
 	imprimirDatosCLientePorId (aArrayClientes,cantClientes, maximoId, aArrayPed, cantPed);
 
 	return retorno;
 }
 
+/**
+ * \brief Cuenta la cantidad de pedidos completados que tiene un determinado id Cliente
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \param *id es el id cliente pasado para poder contar cantidad de pedidos completados
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o la cantidad de pedidos completados del id Cliente pasado a la funcion
+ *
+ */
 int cantPedidosCompletados(Pedidos *aArrayPed, int cantPed, int *id, Clientes *aArrayClientes, int cantClientes)
 {
 	int retorno =EXIT_ERROR;
 	int i;
 	int contador=0;
 
-	if(aArrayPed != NULL && cantPed > 0 )
+	if(aArrayPed != NULL && cantPed > 0 && aArrayClientes !=NULL && cantClientes>0)
 	{
-
 		for(i=0;i<cantPed;i++)
 		{
 			if(aArrayPed[i].idCliente ==*id && aArrayPed[i].status==STATUS_COMPLETO)
@@ -218,15 +283,25 @@ int cantPedidosCompletados(Pedidos *aArrayPed, int cantPed, int *id, Clientes *a
 				contador++;
 			}
 		}
-
 		retorno=contador;
 	}
 	return retorno;
 }
 
 
-//cliente con mas pedidos
 
+
+//CLIENTE CON MAS PEDIDOS
+
+/**
+ * \brief Obtiene el id Cliente con mas pedidos sin importar su estado y lo imprime a traves del llamado de otra funcion.
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o 0 en caso de exito. Imprime el cliente con mas pedidos
+ *
+ */
 int obtenerIdMasPedidos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed)
 {
 	int retorno =EXIT_ERROR;
@@ -235,8 +310,8 @@ int obtenerIdMasPedidos(Clientes *aArrayClientes, int cantClientes, Pedidos *aAr
 	int cantidadPedidos;
 	int maximoPed=0;
 	int maximoId=0;
-	if(aArrayClientes != NULL && cantClientes > 0 )
-		{
+	if(aArrayClientes != NULL && cantClientes > 0 && aArrayPed !=NULL && cantPed>0)
+	{
 		retorno =EXIT_SUCCESS;
 		for(i=0;i<cantClientes;i++)
 		{
@@ -244,19 +319,27 @@ int obtenerIdMasPedidos(Clientes *aArrayClientes, int cantClientes, Pedidos *aAr
 			cantidadPedidos=cantPedidosGenerales(aArrayPed, cantPed, &id,aArrayClientes, cantClientes);
 			maximoPedidos(cantidadPedidos, &maximoPed, &id, &maximoId);
 		}
-		}
+	}
 	imprimirDatosCLientePorId (aArrayClientes,cantClientes, maximoId, aArrayPed, cantPed);
-
 	return retorno;
 }
 
+/**
+ * \brief Cuenta la cantidad de pedidos que tiene un determinado id Cliente
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \param *id es el id cliente pasado para poder contar cantidad de pedidos completados
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o la cantidad de pedidos del id Cliente pasado a la funcion
+ *
+ */
 int cantPedidosGenerales(Pedidos *aArrayPed, int cantPed, int *id, Clientes *aArrayClientes, int cantClientes)
 {
 	int retorno =EXIT_ERROR;
 	int i;
 	int contador=0;
-
-	if(aArrayPed != NULL && cantPed > 0 )
+	if(aArrayPed != NULL && cantPed > 0 && aArrayClientes !=NULL && cantClientes>0)
 	{
 		for(i=0;i<cantPed;i++)
 		{
@@ -270,11 +353,22 @@ int cantPedidosGenerales(Pedidos *aArrayPed, int cantPed, int *id, Clientes *aAr
 	return retorno;
 }
 
-//4) cliente que reciclo mas kilos
 
+
+
+//4) CLIENTE QUE RECICLO MAS KILOS
+
+/**
+ * \brief Obtiene el id Cliente que reciclo mas kilos de plasticos y  lo imprime a traves del llamado de otra funcion.
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o 0 en caso de exito. Imprime el cliente que reciclo mas cant de kilos
+ *
+ */
 int obtenerIdClienteQueRecicloMAsKilos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed)
 {
-
 	int retorno =EXIT_ERROR;
 	int i;
 	int id;
@@ -283,32 +377,39 @@ int obtenerIdClienteQueRecicloMAsKilos(Clientes *aArrayClientes, int cantCliente
 	int maximoId=0;
 	int flagClienteConMasDeUnPedido=0;
 	int j;
-	if(aArrayClientes != NULL && cantClientes > 0 )
-		{
+	if(aArrayClientes != NULL && cantClientes > 0 && aArrayPed !=NULL && cantPed>0 )
+	{
 		retorno =EXIT_SUCCESS;
 		for(i=0;i<cantPed;i++)
 		{
 			j=i+1;
 			if(aArrayPed[i].status==STATUS_COMPLETO)
 			{
-			if(aArrayPed[j].idCliente==aArrayPed[j-1].idCliente)
-			{
-				flagClienteConMasDeUnPedido++;
-			}
-			if(flagClienteConMasDeUnPedido==0)
-			{
-				acumulador=0;
-			}
-			id=aArrayPed[i].idCliente;
-			acumulador=sumaTotalesDeReciclajePorId(aArrayPed, cantPed, &id);
-			maximoPedidos(acumulador, &maximoPed, &id, &maximoId);
+				if(aArrayPed[j].idCliente==aArrayPed[j-1].idCliente)
+				{
+					flagClienteConMasDeUnPedido++;
+				}
+				if(flagClienteConMasDeUnPedido==0)
+				{
+					acumulador=0;
+				}
+				id=aArrayPed[i].idCliente;
+				acumulador=sumaTotalesDeReciclajePorId(aArrayPed, cantPed, &id);
+				maximoPedidos(acumulador, &maximoPed, &id, &maximoId);
 			}
 		}
-		}
+	}
 	imprimirDatosCLientePorId (aArrayClientes,cantClientes, maximoId, aArrayPed, cantPed);
 	return retorno;
 }
 
+/**
+ * \brief Suma los kilos de plasticos reciclados por id Cliente
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \return devuelve  -1 en caso de error ( tamaño de array invalido o array nulo) o 0 devuelve la suma de los reciclados de un id en particular
+ *
+ */
 int sumaTotalesDeReciclajePorId(Pedidos *aArrayPed, int cantPed, int *id)
 {
 	int retorno =EXIT_ERROR;
@@ -321,7 +422,7 @@ int sumaTotalesDeReciclajePorId(Pedidos *aArrayPed, int cantPed, int *id)
 		{
 			if(aArrayPed[i].status==STATUS_COMPLETO && aArrayPed[i].idCliente==*id)
 			{
-					acumulador=acumulador+aArrayPed[i].kilosHdpe_1+aArrayPed[i].kilosLdpe_2+aArrayPed[i].kilosPp_3;
+				acumulador=acumulador+aArrayPed[i].kilosHdpe_1+aArrayPed[i].kilosLdpe_2+aArrayPed[i].kilosPp_3;
 			}
 		}
 		retorno=acumulador;
@@ -332,11 +433,20 @@ int sumaTotalesDeReciclajePorId(Pedidos *aArrayPed, int cantPed, int *id)
 
 
 
-// cliente que reciclo menos kilos
 
+// CLIENTE QUE RECICLO MENOS KILOS
+
+/**
+ * \brief Obtiene el id Cliente que reciclo menos kilos de plasticos y  lo imprime a traves del llamado de otra funcion.
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o 0 en caso de exito. Imprime el cliente que reciclo menos cant de kilos
+ *
+ */
 int obtenerIdClienteQueRecicloMenosKilos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed)
 {
-
 	int retorno =EXIT_ERROR;
 	int i;
 	int id;
@@ -345,32 +455,41 @@ int obtenerIdClienteQueRecicloMenosKilos(Clientes *aArrayClientes, int cantClien
 	int minimoId=100;
 	int flagClienteConMasDeUnPedido=0;
 	int j;
-	if(aArrayClientes != NULL && cantClientes > 0 )
-		{
+	if(aArrayClientes != NULL && cantClientes > 0 && aArrayPed !=NULL && cantPed >0)
+	{
 		retorno =EXIT_SUCCESS;
 		for(i=0;i<cantPed;i++)
 		{
 			j=i+1;
 			if(aArrayPed[i].status==STATUS_COMPLETO)
 			{
-			if(aArrayPed[j].idCliente==aArrayPed[j-1].idCliente)
-			{
-				flagClienteConMasDeUnPedido++;
-			}
-			if(flagClienteConMasDeUnPedido==0)
-			{
-				acumulador=0;
-			}
-			id=aArrayPed[i].idCliente;
-			acumulador=sumaTotalesDeReciclajePorId(aArrayPed, cantPed, &id);
-			minimosPedidos(acumulador, &minimoPed, &id, &minimoId);
+				if(aArrayPed[j].idCliente==aArrayPed[j-1].idCliente)
+				{
+					flagClienteConMasDeUnPedido++;
+				}
+				if(flagClienteConMasDeUnPedido==0)
+				{
+					acumulador=0;
+				}
+				id=aArrayPed[i].idCliente;
+				acumulador=sumaTotalesDeReciclajePorId(aArrayPed, cantPed, &id);
+				minimosPedidos(acumulador, &minimoPed, &id, &minimoId);
 			}
 		}
-		}
+	}
 	imprimirDatosCLientePorId (aArrayClientes,cantClientes, minimoId, aArrayPed, cantPed);
 	return retorno;
 }
 
+/**
+ * \brief Calcula la los kilos minimos de pedidos  y su id cliente
+ * \param cantidadKilos es la cantidad de kilos reciclados de un id en particular
+ * \param *minimoPed es la minima cant de kilos de plasticos reciclados
+ * \param *id es el id cliente pasado para poder calcular el minimo
+ * \param *minimoId es el Id clientes de menor kilos
+ * \return devuelve  -1 en caso de que no se haya encontrado un nuevo minimo o el 0 en caso de exito
+ *
+ */
 int minimosPedidos(int cantidadKilos, int *minimoPed, int *id, int *minimoId)
 {
 	int retorno =EXIT_ERROR;
@@ -384,34 +503,56 @@ int minimosPedidos(int cantidadKilos, int *minimoPed, int *id, int *minimoId)
 }
 
 
-//6) cantidad clientes que reciclaron mas de 1.000 kg - SUPONGO SOLO KILOS RECICLAJE.
 
+
+
+//6) CANTIDAD CLIENTES QUE RECICLARON MAS DE 1.000 KG - SUPONGO SOLO KILOS RECICLAJE.
+
+/**
+ * \brief Obtiene cantidad de clientes que reciclaron mas de mil kilos e imprime el resultado
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o 0 en caso de exito. Imprime la cantidad de clientes que reciclaron mas de 1000 kgs
+ *
+ */
 int obtenerCantidadClientesMasMilKilosReciclados(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed)
 {
 	int retorno =EXIT_ERROR;
 	int i;
 	int id;
 	int pedidosMasMilKilos=0;
-	if(aArrayClientes != NULL && cantClientes > 0 )
-		{
+	if(aArrayClientes != NULL && cantClientes > 0 && aArrayPed !=NULL && cantPed>0)
+	{
 		retorno =EXIT_SUCCESS;
 		for(i=0;i<cantClientes;i++)
 		{
 			id=aArrayClientes[i].id;
 			pedidosMasMilKilos=pedidosMasMilKilos +cantPedidosMasMilKilos(aArrayPed, cantPed,aArrayClientes, cantClientes, id);
 		}
-	if(pedidosMasMilKilos==0)
-	{
-		printf("No hay clientes que hayan reciclado mas de 1.000 kgs \n");
-	}
-	else
-	{
-		printf("La cantidad de clientes que reciclaron mas de 1.000 kg es %d\n",pedidosMasMilKilos);
-	}
+		if(pedidosMasMilKilos==0)
+		{
+			printf("No hay clientes que hayan reciclado mas de 1.000 kgs \n");
 		}
+		else
+		{
+			printf("La cantidad de clientes que reciclaron mas de 1.000 kg es %d\n",pedidosMasMilKilos);
+		}
+	}
 	return retorno;
 }
 
+/**
+ * \brief Cuenta la cantiad de pedidos que se hciieron por mas de 1000 kgs
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param id es el id pasado para que cuente cantidad de kilos reciclados-
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o la cantidad de pedidos de reciclaje que superaron los 1000 kgs
+ *
+ */
 int cantPedidosMasMilKilos(Pedidos *aArrayPed, int cantPed, Clientes *aArrayClientes, int cantClientes, int id)
 {
 	int retorno =EXIT_ERROR;
@@ -419,54 +560,75 @@ int cantPedidosMasMilKilos(Pedidos *aArrayPed, int cantPed, Clientes *aArrayClie
 	int j;
 	int contador=0;
 	int kilosReciclados;
-	if(aArrayPed != NULL && cantPed > 0 )
+	if(aArrayPed != NULL && cantPed > 0 && aArrayClientes !=NULL && cantClientes>0)
 	{
 		for(i=0;i<cantPed;i++)
 		{
 			j=i+1;
 			if(aArrayPed[i].idCliente==id)
 			{
-			kilosReciclados=sumaTotalesDeReciclajePorId(aArrayPed,cantPed, &id);
-			if(aArrayPed[i].status==STATUS_COMPLETO && kilosReciclados>QTY_MAS_X_KILOS_RECICLADOS &&aArrayPed[j].idCliente!=aArrayPed[j-1].idCliente )
-			{
+				kilosReciclados=sumaTotalesDeReciclajePorId(aArrayPed,cantPed, &id);
+				if(aArrayPed[i].status==STATUS_COMPLETO && kilosReciclados>QTY_MAS_X_KILOS_RECICLADOS &&aArrayPed[j].idCliente!=aArrayPed[j-1].idCliente )
+				{
 					contador++;
+				}
 			}
 		}
-	}
 		retorno=contador;
 	}
 	return retorno;
 }
 
 
-// 7) Cant clientes que reciclaron menos de 100 kg
 
+
+// 7) CANTIDAD DE CLIENTES QUE RECICLARON MENOS DE 100 kgs
+
+/**
+ * \brief Obtiene cantidad de clientes que reciclaron menos de 100 kilos e imprime el resultado
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o 0 en caso de exito. Imprime la cantidad de clientes que reciclaron menos de 100 kgs
+ *
+ */
 int obtenerCantidadClientesMenosCienKilosReciclados(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed)
 {
 	int retorno =EXIT_ERROR;
 	int i;
 	int id;
 	int pedidosMenosCienKilos=0;
-	if(aArrayClientes != NULL && cantClientes > 0 )
-		{
+	if(aArrayClientes != NULL && cantClientes > 0 && aArrayPed !=NULL && cantPed >0)
+	{
 		retorno =EXIT_SUCCESS;
 		for(i=0;i<cantClientes;i++)
 		{
 			id=aArrayClientes[i].id;
 			pedidosMenosCienKilos=pedidosMenosCienKilos +cantPedidosMenosCienKilos(aArrayPed, cantPed,aArrayClientes, cantClientes, id);
 		}
-	if(pedidosMenosCienKilos==0)
-	{
-		printf("No hay clientes que hayan reciclado menos de 100 kgs \n");
-	}
-	else
-	{
-		printf("La cantidad de clientes que reciclaron menos de 100 kg es %d\n",pedidosMenosCienKilos);
-	}
+		if(pedidosMenosCienKilos==0)
+		{
+			printf("No hay clientes que hayan reciclado menos de 100 kgs \n");
 		}
+		else
+		{
+			printf("La cantidad de clientes que reciclaron menos de 100 kg es %d\n",pedidosMenosCienKilos);
+		}
+	}
 	return retorno;
 }
 
+/**
+ * \brief Cuenta la cantiad de pedidos que se hciieron por menos de 100 kgs
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param id es el id pasado para que cuente cantidad de kilos reciclados-
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o la cantidad de pedidos de reciclaje que no superaron los 100 kgs
+ *
+ */
 int cantPedidosMenosCienKilos(Pedidos *aArrayPed, int cantPed, Clientes *aArrayClientes, int cantClientes, int id)
 {
 	int retorno =EXIT_ERROR;
@@ -474,28 +636,30 @@ int cantPedidosMenosCienKilos(Pedidos *aArrayPed, int cantPed, Clientes *aArrayC
 	int j;
 	int contador=0;
 	int kilosReciclados;
-	if(aArrayPed != NULL && cantPed > 0 )
+	if(aArrayPed != NULL && cantPed > 0 && aArrayClientes !=NULL && cantClientes>0)
 	{
 		for(i=0;i<cantPed;i++)
 		{
 			j=i+1;
 			if(aArrayPed[i].idCliente==id)
 			{
-			kilosReciclados=sumaTotalesDeReciclajePorId(aArrayPed,cantPed, &id);
-			if(aArrayPed[i].status==STATUS_COMPLETO && kilosReciclados<QTY_MENOS_X_KILOS_RECICLADOS &&aArrayPed[j].idCliente!=aArrayPed[j-1].idCliente )
-			{
+				kilosReciclados=sumaTotalesDeReciclajePorId(aArrayPed,cantPed, &id);
+				if(aArrayPed[i].status==STATUS_COMPLETO && kilosReciclados<QTY_MENOS_X_KILOS_RECICLADOS &&aArrayPed[j].idCliente!=aArrayPed[j-1].idCliente )
+				{
 					contador++;
 				}
 			}
 		}
 		retorno=contador;
-
 	}
 	return retorno;
 }
 
 
-// 8) IMprimir pedidos completados indicando ID pedido - CUIT - % de plastico reciclado (kg reciclados/kg totales)
+
+
+
+// 8) IMPRIMIR PEDIDOS COMPLETADOS INDICANDO ID pedido - CUIT - % de plastico reciclado (kg reciclados/kg totales)
 
 
 
@@ -554,12 +718,12 @@ int imprimirPedidosCompletosConClientesYPorcentajePlasticoReciclado(Pedidos *aAr
 		{
 			for(j=0;j<cantClientes;j++)
 			{
-		if(aArrayPed[i].status==STATUS_COMPLETO && aArrayPed[i].idCliente==aArrayClientes[j].id)
-			{
-			id=aArrayPed[i].id;
-			suma=sumaTotalesDeReciclajePorIdPedido(aArrayPed,cantPed,&id);
-			porcentajePlasticoReciclado=suma/aArrayPed[i].kilosTotales*100;
-			printf("Id pedido: %d - Cuit: %s - Porcentaje Plastico Reciclado : %.2f\n",aArrayPed[i].id,aArrayClientes[j].cuit,porcentajePlasticoReciclado);
+				if(aArrayPed[i].status==STATUS_COMPLETO && aArrayPed[i].idCliente==aArrayClientes[j].id)
+				{
+					id=aArrayPed[i].id;
+					suma=sumaTotalesDeReciclajePorIdPedido(aArrayPed,cantPed,&id);
+					porcentajePlasticoReciclado=suma/aArrayPed[i].kilosTotales*100;
+					printf("Id pedido: %d - Cuit: %s - Porcentaje Plastico Reciclado : %.2f\n",aArrayPed[i].id,aArrayClientes[j].cuit,porcentajePlasticoReciclado);
 				}
 			}
 		}
@@ -567,6 +731,14 @@ int imprimirPedidosCompletosConClientesYPorcentajePlasticoReciclado(Pedidos *aAr
 	return retorno;
 }
 
+/**
+ * \brief Suma los kilos de plasticos reciclados por id Pedido
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \param *id del pedido
+ * \return devuelve  -1 en caso de error ( tamaño de array invalido o array nulo) o  devuelve la suma de los reciclados de un id pedido en particular
+ *
+ */
 int sumaTotalesDeReciclajePorIdPedido(Pedidos *aArrayPed, int cantPed, int *id)
 {
 	int retorno =EXIT_ERROR;
@@ -579,7 +751,7 @@ int sumaTotalesDeReciclajePorIdPedido(Pedidos *aArrayPed, int cantPed, int *id)
 		{
 			if(aArrayPed[i].status==STATUS_COMPLETO && aArrayPed[i].id==*id)
 			{
-					acumulador=acumulador+aArrayPed[i].kilosHdpe_1+aArrayPed[i].kilosLdpe_2+aArrayPed[i].kilosPp_3;
+				acumulador=acumulador+aArrayPed[i].kilosHdpe_1+aArrayPed[i].kilosLdpe_2+aArrayPed[i].kilosPp_3;
 			}
 		}
 		retorno=acumulador;
@@ -588,8 +760,9 @@ int sumaTotalesDeReciclajePorIdPedido(Pedidos *aArrayPed, int cantPed, int *id)
 }
 
 
-// 9)Ingresar una localidad e indicar la cantidad de pedidos pendientes para dicha localidad.
 
+
+// 9)INGRESAR UNA LOCALIDAD E INDICAR LA CANTIDAD DE PEDIDOS PENDIENTES PARA DICHA LOCALIDAD
 //int obtenerCantidadPedidosPendientesPorLocalidadIngresada(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed, int localidad)
 //{
 //	int retorno =EXIT_ERROR;
@@ -636,24 +809,39 @@ int sumaTotalesDeReciclajePorIdPedido(Pedidos *aArrayPed, int cantPed, int *id)
 //	return retorno;
 //}
 
+/**
+ * \brief Pone la primer letra en mayuscula, el resto las pasa a minuscula
+ * \param *localidada es la localidad ingresada por el usuario
+ * \return devuelve  -1 en caso de error  o 0 en caso de exito
+ *
+ */
 int pasarSoloPrimeraLetraMayuscula(char *localidad)
 {
 	int retorno =EXIT_ERROR;
 	int i=0;
 	if(localidad !=NULL)
 	{
-	retorno=EXIT_SUCCESS;
-	localidad[0]=toupper(localidad[0]);
+		retorno=EXIT_SUCCESS;
+		localidad[0]=toupper(localidad[0]);
 
-	for(i=1;i<QTY_LOCALIDAD;i++)
-	{
-		localidad[i]=tolower(localidad[i]);
-	}
+		for(i=1;i<QTY_LOCALIDAD;i++)
+		{
+			localidad[i]=tolower(localidad[i]);
+		}
 	}
 	return retorno;
 }
 
-
+/**
+ * \brief Cuenta la cantiad de pedidos pendintes por una localidad determinada
+ * \param *aArrayClientes array de clientes
+ * \param cantClientes tamaño del array de clientes
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \param localidad es la localidad ingresad por el usuario.
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o la cantidad de pedidos pendientes para la localidad ingresada
+ *
+ */
 int obtenerCantidadPedidosPendientesPorLocalidadIngresada(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed, char *localidad)
 {
 	int retorno =EXIT_ERROR;
@@ -678,12 +866,22 @@ int obtenerCantidadPedidosPendientesPorLocalidadIngresada(Clientes *aArrayClient
 			printf("La cantidad de pedidos pendientes para la localidad %s es %d\n",localidad,contador);
 		}
 	}
-
 	return retorno;
 }
 
-// cantidad kilos propileno reciclado promedio por cliente (kg totales polipropileno / cant clientes) Tomo pedidos solo completos. Sumo polipropileno y divido por clientes con pedidos completos.  230+30+270+70+3 y se divide por 4 (id 1 solo una vez se cuenta)
 
+
+
+
+//10)CANTIDAD DE KILOS DE POLIPROPILENO RECICLADO PROMEDIO POR CLIENTE (kg totales polipropileno / cant clientes) Tomo pedidos solo completos. Sumo polipropileno y divido por clientes con pedidos completos.  230+30+270+70+3 y se divide por 4 (id 1 solo una vez se cuenta)
+
+/**
+ * \brief Obtiene la cantidad de polipropileno promedio reciclado y lo imprime
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o 0 en caos de exito
+ *
+ */
 float obtenerKilosPolipropilenoPromedio(Pedidos *aArrayPed, int cantPed)
 {
 	float retorno =EXIT_ERROR;
@@ -694,36 +892,47 @@ float obtenerKilosPolipropilenoPromedio(Pedidos *aArrayPed, int cantPed)
 	int i;
 	int j;
 	if(aArrayPed != NULL && cantPed > 0 )
+	{
+		retorno =EXIT_SUCCESS;
+		for(i=0;i<cantPed; i++)
+		{j=i+1;
+		if(aArrayPed[i].status==STATUS_COMPLETO)
 		{
-
-			retorno =EXIT_SUCCESS;
-			for(i=0;i<cantPed; i++)
-			{j=i+1;
-				if(aArrayPed[i].status==STATUS_COMPLETO)
-				{
-					flag=1;
-					if(aArrayPed[j].idCliente!=aArrayPed[j-1].idCliente)
-					{
-						contadorClientes++;
-					}
-					kilosPolipropileno=kilosPolipropileno +aArrayPed[i].kilosPp_3;
-				}
-
+			flag=1;
+			if(aArrayPed[j].idCliente!=aArrayPed[j-1].idCliente)
+			{
+				contadorClientes++;
 			}
-			if(flag==0)
-							{
-								contadorClientes=0;
-								printf("NO se puede calcular el promedio ya que no hay pedidos completos \n");
-							}
-			promedio=kilosPolipropileno/contadorClientes;
-			retorno=promedio;
+			kilosPolipropileno=kilosPolipropileno +aArrayPed[i].kilosPp_3;
 		}
+		}
+		if(flag==0)
+		{
+			contadorClientes=0;
+			printf("NO se puede calcular el promedio ya que no hay pedidos completos \n");
+		}
+		promedio=kilosPolipropileno/contadorClientes;
+		retorno=promedio;
+	}
 	return retorno;
 }
 
 
-//11) ingresar cuit de cliente y uno de los tres tipo de plastico e informar kilos totales reciclados de dicho tipo.
 
+
+//11) INGRESAR CUIT DE UN CLIENTE Y UNO DE LOS TRES TIPOS DE PLASTICOS E INFORMAR KILOS TOTALES RECICLADO DE DICHO TIPO
+
+/**
+ * \brief Obtiene los kilos totales reciclados de un tipo de residuo de un cuit en particular
+ * \param *aArrayPed array de pedidos
+ * \param cantPed tamaño del array de pedidos
+ * \param *aArrayClientes array de clientes
+ * \param cantCLientes tamaño del array
+ * \param cuit ingresado por usuario
+ * \param tipoResiduo seleccioando por el usuario
+ * \return devuelve  -1 en caso de error ( tamaño de algun array invalido o array nulo) o los kilos de plasticos reciclados
+ *
+ */
 int obtenerKilosTotalesTipoResiduoPorCuit(Pedidos *aArrayPed, int cantPed, Clientes *aArrayClientes, int cantClientes, char *cuit, int tipoResiduo)
 {
 	int retorno =EXIT_ERROR;
@@ -789,27 +998,34 @@ int buscarClientePorCuit(Clientes *aArray, int cantidad, char *cuit)
 	return retorno;
 }
 
-
+/**
+ * \brief Imprime los kilos totales de un residuo para un cuit en particular
+ * \param kilos de residuo
+ * \param cuit del cliente
+ * \param tipoResiduo
+ * \return devuelve el -1 (EXIT_ERROR) o el 0 en caso de exito
+ *
+ */
 int imprimirKilosTotalesTipoResiduoPorCuit(int kilos, char *cuit, int tipoResiduo)
 {
 	int retorno=EXIT_ERROR;
 	char residuoEnLetras[50];
-if(cuit!=NULL)
-{
-	switch(tipoResiduo)
+	if(cuit!=NULL)
 	{
-	case 1:
-		strncpy(residuoEnLetras,"HDPE",50);
-		break;
-	case 2:
-		strncpy(residuoEnLetras,"LDPE",50);
-		break;
-	case 3:
-		strncpy(residuoEnLetras,"PP",50);
-		break;
+		retorno=EXIT_SUCCESS;
+		switch(tipoResiduo)
+		{
+		case 1:
+			strncpy(residuoEnLetras,"HDPE",50);
+			break;
+		case 2:
+			strncpy(residuoEnLetras,"LDPE",50);
+			break;
+		case 3:
+			strncpy(residuoEnLetras,"PP",50);
+			break;
+		}
+		printf("La cantidad de kilos de plastico %s para el cuit %s es %d \n",residuoEnLetras,cuit,kilos);
 	}
-	printf("La cantidad de kilos de plastico %s para el cuit %s es %d \n",residuoEnLetras,cuit,kilos);
-}
-
 	return retorno;
 }

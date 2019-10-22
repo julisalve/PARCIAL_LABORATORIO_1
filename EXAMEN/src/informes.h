@@ -11,12 +11,12 @@
 #include "Pedidos.h"
 
 int menuInformes(Pedidos *aArrayPed, int cantPed, Clientes *aArrayClientes, int cantClientes, auxContador *aArrayCont, int cantCont);
-int obtenerId(Clientes *aArray, int cantidad,  Pedidos *aArrayPed, int cantPed);
+int obtenerIdConMasPedidosPendientes(Clientes *aArray, int cantidad,  Pedidos *aArrayPed, int cantPed);
 int cantPedidosPendientes(Pedidos *aArrayPed, int cantPed, int *id, Clientes *aArrayClientes, int cantClientes);
 int maximoPedidos(int cantidadPedidos, int *maximoPed, int *id, int *maximoId);
 int buscarClientePorIdInformes(Clientes *aArray, int cantidad, int id);
 int cantPedidosCompletados(Pedidos *aArrayPed, int cantPed, int *id, Clientes *aArrayClientes, int cantClientes);
-int obtenerIdCompletos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed);
+int obtenerIdConMasPedidosCompletos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed);
 int obtenerIdMasPedidos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed);
 int cantPedidosGenerales(Pedidos *aArrayPed, int cantPed, int *id, Clientes *aArrayClientes, int cantClientes);
 int obtenerIdClienteQueRecicloMAsKilos(Clientes *aArrayClientes, int cantClientes, Pedidos *aArrayPed, int cantPed);
