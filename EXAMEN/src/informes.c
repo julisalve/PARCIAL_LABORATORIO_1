@@ -115,6 +115,7 @@ int obtenerIdConMasPedidosPendientes(Clientes *aArrayClientes, int cantClientes,
 			maximoPedidos(cantidadPedidos, &maximoPed, &id, &maximoId);
 		}
 	}
+	printf("El cliente con mas pedidos pendientes es: ");
 	imprimirDatosCLientePorId (aArrayClientes,cantClientes, maximoId, aArrayPed, cantPed);
 	return retorno;
 }
@@ -253,6 +254,7 @@ int obtenerIdConMasPedidosCompletos(Clientes *aArrayClientes, int cantClientes, 
 			maximoPedidos(cantidadPedidos, &maximoPed, &id, &maximoId);
 		}
 	}
+	printf("El cliente con mas pedidos completos es: ");
 	imprimirDatosCLientePorId (aArrayClientes,cantClientes, maximoId, aArrayPed, cantPed);
 
 	return retorno;
@@ -320,6 +322,7 @@ int obtenerIdMasPedidos(Clientes *aArrayClientes, int cantClientes, Pedidos *aAr
 			maximoPedidos(cantidadPedidos, &maximoPed, &id, &maximoId);
 		}
 	}
+	printf("El cliente con mas pedidos es: ");
 	imprimirDatosCLientePorId (aArrayClientes,cantClientes, maximoId, aArrayPed, cantPed);
 	return retorno;
 }
@@ -399,6 +402,7 @@ int obtenerIdClienteQueRecicloMAsKilos(Clientes *aArrayClientes, int cantCliente
 			}
 		}
 	}
+	printf("El cliente que mas kilos reciclo es: ");
 	imprimirDatosCLientePorId (aArrayClientes,cantClientes, maximoId, aArrayPed, cantPed);
 	return retorno;
 }
@@ -477,6 +481,7 @@ int obtenerIdClienteQueRecicloMenosKilos(Clientes *aArrayClientes, int cantClien
 			}
 		}
 	}
+	printf("El cliente que menos kilos reciclo es: ");
 	imprimirDatosCLientePorId (aArrayClientes,cantClientes, minimoId, aArrayPed, cantPed);
 	return retorno;
 }
@@ -714,6 +719,7 @@ int imprimirPedidosCompletosConClientesYPorcentajePlasticoReciclado(Pedidos *aAr
 	if(aArrayPed != NULL && cantPed>0 && aArrayClientes!=NULL && cantClientes>0)
 	{
 		retorno =EXIT_SUCCESS;
+		printf("Los pedidos completados son: \n");
 		for(i=0;i<cantPed;i++)
 		{
 			for(j=0;j<cantClientes;j++)
@@ -846,7 +852,9 @@ int obtenerCantidadPedidosPendientesPorLocalidadIngresada(Clientes *aArrayClient
 {
 	int retorno =EXIT_ERROR;
 	int i;
+	int j;
 	int contador=0;
+	int idCliente;
 	if(aArrayPed != NULL && cantPed > 0 && aArrayClientes != NULL && cantClientes > 0 && localidad !=NULL)
 	{
 		retorno=EXIT_SUCCESS;
@@ -854,12 +862,19 @@ int obtenerCantidadPedidosPendientesPorLocalidadIngresada(Clientes *aArrayClient
 		{
 			if(strncmp(localidad,aArrayClientes[i].localidad,QTY_LOCALIDAD)==0)
 			{
-				contador++;
+				idCliente=aArrayClientes[i].id;
+				for(j=0;j<cantPed;j++)
+				{
+					if(aArrayPed[j].status==STATUS_PENDIENTE && idCliente==aArrayPed[j].idCliente)
+					{
+						contador++;
+					}
+				}
 			}
 		}
 		if(contador==0)
 		{
-			printf("No existe esa localidad\n");
+			printf("No hay pedidos pendientes para dicha localidad\n");
 		}
 		else
 		{
